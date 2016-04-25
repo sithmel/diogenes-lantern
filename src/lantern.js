@@ -1,34 +1,11 @@
 var d3 = require('d3');
 
-function focusNode(node, infoObj, textNode) {
-  var rows = ['<h3>' + infoObj.name + '</h3>'];
-  rows.push('<p>' + infoObj.description + '</p>');
-
-  if (infoObj.inactive) {
-    rows.push('<p><strong>Not available with this configuration.</strong></p>');
-  }
-
-  if (infoObj.dependencies.length > 0) {
-    rows.push('<br />');
-    rows.push('<p>Dependencies:</p><ul>');
-    infoObj.dependencies.forEach(function (d) {
-      rows.push('<li>' + d + '</li>');
-    });
-    rows.push('</ul>');
-  }
-
-  if (infoObj.metadata) {
-    rows.push('<br />');
-    rows.push('<p>Metadata:</p>');
-    rows.push('<pre>');
-    rows.push(JSON.stringify(this.metadata()), null, '  ');
-    rows.push('</pre>');
-  }
-
+function focusNode(node, textNode) {
+  var rows = ['<h3>' + node.name + '</h3>'];
   textNode.innerHTML = rows.join('\n');
 }
 
-function blurNode(node, infoObj, textNode) {
+function blurNode(node, textNode) {
   textNode.innerHTML = '';
 }
 
@@ -53,8 +30,7 @@ Lantern.prototype.draw = function (DOMnode) {
       onFocus = this.opts.onFocus || focusNode,
       onBlur = this.opts.onBlur || blurNode;
 
-  var infoObj = this.infoObj;
-  var adjList = this.adjList;
+  var adjList = this.diogenesInstance.getAdjList();
 
   var nodes = Object.keys(adjList)
     .reduce(function (obj, name){
@@ -119,10 +95,10 @@ Lantern.prototype.draw = function (DOMnode) {
     .enter().append("circle")
       .attr("r", nodeRadius)
       .on('focus', function (node){
-        onFocus.call(this, node, infoObj[node.name], textNode[0][0]);
+        onFocus.call(this, node, textNode[0][0]);
       })
       .on('blur', function (node){
-        onBlur.call(this, node, infoObj[node.name], textNode[0][0]);
+        onBlur.call(this, node, textNode[0][0]);
       })
       .call(force.drag);
 

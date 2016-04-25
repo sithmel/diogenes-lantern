@@ -1,6 +1,6 @@
 var Diogenes = require('diogenes');
 var logDecorator = require('async-deco/callback/log');
-var lantern = require('../src/lantern');
+var Lantern = require('../src/lantern');
 
 var registry = Diogenes.getRegistry();
 registry.service('database')
@@ -30,7 +30,7 @@ registry.service('userprofile')
 ]);
 
 registry.service('permissions')
-dependsOn(['userprofile', 'userdata'])
+.dependsOn(['userprofile', 'userdata'])
 .provides([
   logDecorator(),
   function (config, deps, next) {
@@ -42,4 +42,4 @@ var registryInstance = registry.instance();
 
 var lantern = new Lantern(registryInstance);
 
-lantern.draw(document.body);
+lantern.draw(document.getElementById('canvas'));

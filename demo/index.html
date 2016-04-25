@@ -2,37 +2,9 @@
 <head>
   <title>Demo</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="../src/diogenes.draw.css" />
-  <script src="//d3js.org/d3.v3.min.js"></script>
-  <script src="../node_modules/occamsrazor/occamsrazor.js"></script>
-  <script src="../node_modules/setimmediate/setImmediate.js"></script>
-
-  <script src="../src/diogenes.js"></script>
-  <script src="../src/diogenes.draw.js"></script>
-
+  <link rel="stylesheet" href="../src/lantern.css" />
 </head>
 <body>
-<script>
-  var registry = Diogenes.getRegistry();
-  registry.service('database').add(function (config, deps, next) {
-    next(undefined, 'database');
-  }).description('open database connection');
-
-  registry.service('userdata').add(['database'], function (config, deps, next) {
-    next(undefined, 'userdata');
-  }).description('get userdata from db');
-
-  registry.service('userprofile').add(['database', 'userdata'], function (config, deps, next) {
-    next(undefined, 'userprofile');
-  }).description('get userprofile');
-
-  registry.service('permissions').add(['userprofile', 'userdata'], function (config, deps, next) {
-    next(undefined, 'permissions');
-  }).description('get permissions, used for accessing resources');
-
-  var graph = new DiogenesDraw(registry.getAdjacencyList(), registry.infoObj());
-
-  graph.draw(document.body);
-  graph.draw(document.body);
-</script>
+  <div id="canvas"></div>
+  <script src="../build/demo.js"></script>
 </body>
