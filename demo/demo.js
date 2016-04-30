@@ -7,7 +7,9 @@ registry.service('database')
 .provides([
   logDecorator(),
   function (config, deps, next) {
-    next(undefined, 'database');
+    setTimeout(function () {
+      next(undefined, 'database');
+    }, 100);
   }
 ]);
 
@@ -16,7 +18,9 @@ registry.service('userdata')
 .provides([
   logDecorator(),
   function (config, deps, next) {
-    next(undefined, 'userdata');
+    setTimeout(function () {
+      next(undefined, 'userdata');
+    }, 120);
   }
 ]);
 
@@ -25,7 +29,9 @@ registry.service('userprofile')
 .provides([
   logDecorator(),
   function (config, deps, next) {
-    next(undefined, 'userprofile');
+    setTimeout(function () {
+      next(undefined, 'userprofile');
+    }, 80);
   }
 ]);
 
@@ -34,12 +40,21 @@ registry.service('permissions')
 .provides([
   logDecorator(),
   function (config, deps, next) {
-    next(undefined, 'permissions');
+    setTimeout(function () {
+      next(undefined, 'permissions');
+    }, 180);
   }
 ]);
 
 var registryInstance = registry.instance();
 
-var lantern = new Lantern(registryInstance);
+var lantern = new Lantern(registryInstance, document.getElementById('canvas'));
 
-lantern.draw(document.getElementById('canvas'));
+
+// run registryInstance
+
+document.getElementById('run').addEventListener('click', function (evt) {
+  registryInstance.run('permissions', function (err, data) {
+    console.log(data);
+  });
+});

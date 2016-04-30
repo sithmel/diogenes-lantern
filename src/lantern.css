@@ -29,3 +29,7 @@
   height: 400px;
   width: 400px;
 }
+
+.diogenes-slider input{
+  width: 100%;
+}
