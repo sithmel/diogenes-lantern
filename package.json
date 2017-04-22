@@ -40,9 +40,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "async-deco": "^4.3.0",
-    "d3": "^3.5.16",
-    "diogenes": "^1.0.0",
-    "occamsrazor": "^5.0.0"
+    "d3": "^4.8.0",
+    "diogenes": "^2.0.0"
   }
 }

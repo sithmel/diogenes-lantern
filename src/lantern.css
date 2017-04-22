@@ -1,35 +1,26 @@
-.diogenes-draw-canvas {
+.diogenes-lantern-vis {
   background-color: #ddd;
 }
 
-.diogenes-draw-canvas .link {
+.diogenes-lantern-link {
   fill: none;
   stroke: #666;
   stroke-width: 1.5px;
 }
 
-.diogenes-draw-canvas circle {
+.diogenes-lantern-node {
   fill: #8CCFFF;
   stroke: #333;
   stroke-width: 1.5px;
 }
 
-.diogenes-draw-canvas circle:focus {
+.diogenes-lantern-node:focus {
   fill: #F3E323;
   outline: none;
 }
 
-.diogenes-draw-canvas text {
+.diogenes-lantern-label {
   font: 12px sans-serif;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-}
-
-.diogenes-draw-text {
-  height: 400px;
-  width: 400px;
-}
-
-.diogenes-slider input{
-  width: 100%;
 }
