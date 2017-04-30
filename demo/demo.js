@@ -1,5 +1,6 @@
 var Diogenes = require('diogenes');
 var graph = require('../src/lantern').graph;
+var waterfall = require('../src/lantern').waterfall;
 var addLogger = require('async-deco/utils/add-logger');
 var logDecorator = require('async-deco/callback/log');
 var compose = require('async-deco/utils/compose');
@@ -89,17 +90,11 @@ registry2.service('test2')
 var registry2Instance = registry2.instance({ key: 1 });
 
 
-g.render(registryInstance);
-setTimeout(function () {
-  g.render(registry2Instance);
-}, 2000);
-// g.render(registryInstance);
-// g.render(registryInstance);
-// g.render(registryInstance);
+g.render(registryInstance.getAdjList());
 
 g.focus('userdata');
 
 
-// var w = waterfall(document.getElementById('canvas'));
+var w = waterfall(document.getElementById('canvas'));
 
-// w.render(logs);
+w.render(logs);

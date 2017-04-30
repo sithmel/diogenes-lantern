@@ -18,7 +18,7 @@ function lantern(DOMnode, opts) {
     onFocus = opts.onFocus || function () {};
 
   var $DOMnode = d3.select(DOMnode);
-  var nodes, links, adjList, circle, forceLinks, path, text,
+  var nodes, links, circle, forceLinks, path, text,
     circleUpdate, pathUpdate, textUpdate;
 
   var simulation = d3.forceSimulation()
@@ -92,9 +92,8 @@ function lantern(DOMnode, opts) {
   }
 
   return {
-    render: function (diogenesInstance) {
-      // state
-      adjList = diogenesInstance.getAdjList();
+    render: function (adjList) {
+      var random = function () { return Math.random().toString(36).substring(7); };
 
       // items
       nodes = utils.adjList2Nodes(adjList);
@@ -109,7 +108,7 @@ function lantern(DOMnode, opts) {
         });
 
       pathUpdate = groupPath.selectAll('path')
-        .data(links, function (d) { return d.id; });
+        .data(links, function (d) { return d.id + random(); });
 
       path = pathUpdate
         .enter().append('path')
@@ -118,7 +117,7 @@ function lantern(DOMnode, opts) {
 
 
       circleUpdate = groupCircle.selectAll('circle')
-        .data(nodes, function (d) { return d.name; });
+        .data(nodes, function (d) { return d.name + random(); });
 
       circle = circleUpdate
         .enter().append('circle')
@@ -133,7 +132,7 @@ function lantern(DOMnode, opts) {
             .on('end', dragended));
 
       textUpdate = groupText.selectAll('text')
-        .data(nodes, function (d) { return d.name; });
+        .data(nodes, function (d) { return d.name + random(); });
 
       text = textUpdate
         .enter().append('text')
