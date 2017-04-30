@@ -18,14 +18,13 @@ function lantern(DOMnode, opts) {
     onFocus = opts.onFocus || function () {};
 
   var $DOMnode = d3.select(DOMnode);
-  var nodes, links, adjList, circle, forceLinks, path, text;
+  var nodes, links, adjList, circle, forceLinks, path, text,
+    circleUpdate, pathUpdate, textUpdate;
 
-  // var simulation;
   var simulation = d3.forceSimulation()
-    // .nodes(nodes)
     .force('charge', d3.forceManyBody())
-    // .force('links', forceLinks)
     .force('center', d3.forceCenter(height / 2, width / 2))
+    .alphaTarget(1)
     .on('tick', tick);
 
     // render
@@ -109,27 +108,19 @@ function lantern(DOMnode, opts) {
           return d.name;
         });
 
-      // simulation = d3.forceSimulation()
-      //   .nodes(nodes)
-      //   .force('charge', d3.forceManyBody())
-      //   .force('links', forceLinks)
-      //   .force('center', d3.forceCenter(height / 2, width / 2))
-      //   .on('tick', tick);
+      pathUpdate = groupPath.selectAll('path')
+        .data(links, function (d) { return d.id; });
 
-      simulation
-        .nodes(nodes)
-        .force('links', forceLinks);
-        // .on('tick', tick);
-
-      path = groupPath.selectAll('path')
-        .data(links, function (d) { return d.id; })
+      path = pathUpdate
         .enter().append('path')
           .classed('diogenes-lantern-link', true)
           .attr('marker-end', function (d) { return 'url(#linked)'; });
 
 
-      circle = groupCircle.selectAll('circle')
-        .data(nodes, function (d) { return d.name; })
+      circleUpdate = groupCircle.selectAll('circle')
+        .data(nodes, function (d) { return d.name; });
+
+      circle = circleUpdate
         .enter().append('circle')
           .classed('diogenes-lantern-node', true)
           .attr('r', nodeRadius)
@@ -141,20 +132,28 @@ function lantern(DOMnode, opts) {
             .on('drag', dragged)
             .on('end', dragended));
 
-      text = groupText.selectAll('text')
-        .data(nodes, function (d) { return d.name; })
+      textUpdate = groupText.selectAll('text')
+        .data(nodes, function (d) { return d.name; });
+
+      text = textUpdate
         .enter().append('text')
           .classed('diogenes-lantern-label', true)
           .attr('x', textPositionX)
           .attr('y', textPositionY)
           .text(function (d) { return d.name; });
 
-      path
+      pathUpdate
         .exit().remove();
-      circle
+      circleUpdate
         .exit().remove();
-      text
+      textUpdate
         .exit().remove();
+
+      simulation
+        .nodes(nodes)
+        .force('links', forceLinks)
+        .alphaTarget(1)
+        .restart();
 
     },
     focus: function (nodeName) {

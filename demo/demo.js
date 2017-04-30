@@ -69,7 +69,30 @@ var g = graph(document.getElementById('canvas'), {
   }
 });
 
+var registry2 = Diogenes.getRegistry();
+
+registry2.service('permissions')
+.provides(buildLogger('permissions')(function (config, deps, next) {
+  setTimeout(function () {
+    next(undefined, 'permissions');
+  }, 180);
+}));
+
+registry2.service('test2')
+.dependsOn(['permissions'])
+.provides(buildLogger('test2')(function (config, deps, next) {
+  setTimeout(function () {
+    next(undefined, 'permissions');
+  }, 180);
+}));
+
+var registry2Instance = registry2.instance({ key: 1 });
+
+
 g.render(registryInstance);
+setTimeout(function () {
+  g.render(registry2Instance);
+}, 2000);
 // g.render(registryInstance);
 // g.render(registryInstance);
 // g.render(registryInstance);
