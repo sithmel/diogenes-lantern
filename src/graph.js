@@ -31,7 +31,7 @@ function lantern(DOMnode, opts) {
   var svg = $DOMnode.append('svg')
     .attr('width', width)
     .attr('height', height)
-    .classed('diogenes-lantern-vis', true);
+    .classed('dlantern-graph', true);
 
   // Per-type markers, as they don't inherit styles.
   svg.append('defs').selectAll('marker')
@@ -88,7 +88,7 @@ function lantern(DOMnode, opts) {
 
   function updateFocus() {
     circle
-     .classed('diogenes-lantern-focus', function (d) { return !!d.focus; });
+     .classed('dlantern-graph__node--focus', function (d) { return !!d.focus; });
   }
 
   return {
@@ -112,7 +112,7 @@ function lantern(DOMnode, opts) {
 
       path = pathUpdate
         .enter().append('path')
-          .classed('diogenes-lantern-link', true)
+          .classed('dlantern-graph__link', true)
           .attr('marker-end', function (d) { return 'url(#linked)'; });
 
 
@@ -121,7 +121,7 @@ function lantern(DOMnode, opts) {
 
       circle = circleUpdate
         .enter().append('circle')
-          .classed('diogenes-lantern-node', true)
+          .classed('dlantern-graph__node', true)
           .attr('r', nodeRadius)
           .on('focus', function (node) {
             onFocus(node.name);
@@ -136,7 +136,7 @@ function lantern(DOMnode, opts) {
 
       text = textUpdate
         .enter().append('text')
-          .classed('diogenes-lantern-label', true)
+          .classed('dlantern-graph__label', true)
           .attr('x', textPositionX)
           .attr('y', textPositionY)
           .text(function (d) { return d.name; });

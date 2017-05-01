@@ -10,7 +10,7 @@
     "lint": "./node_modules/.bin/eslint --ext .js ./src ./tests",
     "watch-demo-js": "./node_modules/.bin/watchify demo/demo.js -o build/demo.js -v",
     "watch-demo-html": "./node_modules/.bin/catw demo/index.html -o build/index.html -v",
-    "watch-demo-css": "./node_modules/.bin/catw src/lantern.css -o build/lantern.css -v",
+    "watch-demo-css": "./node_modules/.bin/catw src/lantern-graph.css src/lantern-waterfall.css -o build/lantern.css -v",
     "release:major": "./node_modules/.bin/npm-release major",
     "release:minor": "./node_modules/.bin/npm-release minor",
     "release:patch": "./node_modules/.bin/npm-release patch",
@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "d3": "^4.8.0",
-    "diogenes": "^2.0.0"
+    "diogenes": "^2.0.0",
+    "lodash": "^4.17.4"
   }
 }

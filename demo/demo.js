@@ -61,10 +61,9 @@ registry.service('permissions')
 }));
 
 var registryInstance = registry.instance({ key: 1 });
-registryInstance.run('permissions');
 
 
-var g = graph(document.getElementById('canvas'), {
+var g = graph(document.getElementById('canvas1'), {
   onFocus: function (name) {
     console.log(name);
   }
@@ -94,7 +93,8 @@ g.render(registryInstance.getAdjList());
 
 g.focus('userdata');
 
+registryInstance.run('permissions', function (err, perm) {
+  var w = waterfall(document.getElementById('canvas2'));
 
-var w = waterfall(document.getElementById('canvas'));
-
-w.render(logs);
+  w.render(logs);
+});

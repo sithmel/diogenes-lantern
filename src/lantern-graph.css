@@ -1,29 +1,29 @@
-.diogenes-lantern-vis {
+.dlantern-graph {
   background-color: #ddd;
 }
 
-.diogenes-lantern-link {
+.dlantern-graph__link {
   fill: none;
   stroke: #666;
   stroke-width: 1.5px;
 }
 
-.diogenes-lantern-node {
+.dlantern-graph__node {
   fill: #8CCFFF;
   stroke: #333;
   stroke-width: 1.5px;
 }
 
-.diogenes-lantern-node:focus {
+.dlantern-graph__node:focus {
   fill: #F3E323;
   outline: none;
 }
 
-.diogenes-lantern-focus{
+.dlantern-graph__node--focus{
   fill: #F3E323;
 }
 
-.diogenes-lantern-label {
+.dlantern-graph__label {
   font: 12px sans-serif;
   pointer-events: none;
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
