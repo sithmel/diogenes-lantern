@@ -90,6 +90,7 @@ var registry2Instance = registry2.instance({ key: 1 });
 
 
 g.render(registryInstance.getAdjList());
+// g.render(registry2Instance.getAdjList());
 
 g.focus('userdata');
 

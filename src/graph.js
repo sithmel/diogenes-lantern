@@ -108,16 +108,17 @@ function lantern(DOMnode, opts) {
         });
 
       pathUpdate = groupPath.selectAll('path')
-        .data(links, function (d) { return d.id + random(); });
+        .data(links, function (d) { return d.id; });
 
       path = pathUpdate
         .enter().append('path')
           .classed('dlantern-graph__link', true)
-          .attr('marker-end', function (d) { return 'url(#linked)'; });
+          .attr('marker-end', function (d) { return 'url(#linked)'; })
+          .merge(pathUpdate);
 
 
       circleUpdate = groupCircle.selectAll('circle')
-        .data(nodes, function (d) { return d.name + random(); });
+        .data(nodes, function (d) { return d.name; });
 
       circle = circleUpdate
         .enter().append('circle')
@@ -129,17 +130,19 @@ function lantern(DOMnode, opts) {
           .call(d3.drag()
             .on('start', dragstarted)
             .on('drag', dragged)
-            .on('end', dragended));
+            .on('end', dragended))
+          .merge(circleUpdate);
 
       textUpdate = groupText.selectAll('text')
-        .data(nodes, function (d) { return d.name + random(); });
+        .data(nodes, function (d) { return d.name; });
 
       text = textUpdate
         .enter().append('text')
           .classed('dlantern-graph__label', true)
           .attr('x', textPositionX)
           .attr('y', textPositionY)
-          .text(function (d) { return d.name; });
+          .text(function (d) { return d.name; })
+          .merge(textUpdate);
 
       pathUpdate
         .exit().remove();
