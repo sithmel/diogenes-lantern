@@ -8,7 +8,7 @@ function adjList2Nodes (adjList) {
 function adjList2Links (adjList) {
   return Object.keys(adjList)
     .map(function (name) {
-      return adjList[name]
+      return adjList[name].deps
         .map(function (target) {
           return { source: target, target: name, id: target + '-' + name }
         })

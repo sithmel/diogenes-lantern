@@ -1,0 +1,72 @@
+.dlantern-graph {
+  background-color: #ddd;
+}
+
+.dlantern-graph__link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.dlantern-graph__node {
+  fill: #8CCFFF;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.dlantern-graph__node:focus {
+  fill: #F3E323;
+  outline: none;
+}
+
+.dlantern-graph__node--focus{
+  fill: #F3E323;
+}
+
+.dlantern-graph__label {
+  font: 12px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+/* layout */
+.lantern-graph svg {
+  width: 100%;
+  height: calc(100vh - 30px);
+}
+
+.lantern-help {
+  opacity: 0;
+  transition: opacity 1000ms ease, transform 400ms ease;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  background-color: rgba(3, 3, 3, 0.5);
+  left: 0;
+  transform: translateY(calc(100% - 50px));
+  color: white;
+  font-size: 10px;
+  font-family: sans-serif;
+}
+
+.lantern-help-show .lantern-help{
+  opacity: 1;
+}
+
+.lantern-help td{
+  padding: 3px;
+}
+
+.lantern-help:hover {
+  transform: translateY(0);
+}
+
+.lantern-header {
+  background: #666;
+  height: 30px;
+  line-height: 30px;
+  color: white;
+  padding: 6px;
+  font-family: sans-serif;
+}

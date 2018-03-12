@@ -6,10 +6,10 @@ function lantern (opts) {
 
   var SVGDOMnode = opts.SVGDOMnode || document.getElementById('lantern-graph')
   var helpDOMNode = opts.helpDOMNode || document.getElementById('lantern-help')
-  var width = opts.width || 400
-  var height = opts.height || 400
+  var width = opts.width || 650
+  var height = opts.height || 650
   var linkDistance = opts.linkDistance || 100
-  var charge = opts.charge || -40
+  // var charge = opts.charge || -40
   var refX = opts.refX || 15
   var refY = opts.refY || -1.5
   var markerWidth = opts.markerWidth || 6
@@ -31,8 +31,8 @@ function lantern (opts) {
     // render
   var svg = $SVGDOMnode.append('svg')
     .attr('viewBox', '0 0 ' + width + ' ' + height)
-    .attr('width', '100%')
-    .attr('height', '100vh')
+    // .attr('width', '100%')
+    // .attr('height', '100vh')
     .classed('dlantern-graph', true)
 
   // Per-type markers, as they don't inherit styles.
@@ -61,9 +61,9 @@ function lantern (opts) {
   }
 
   function linkArc (d) {
-    var dx = d.target.x - d.source.x,
-      dy = d.target.y - d.source.y,
-      dr = Math.sqrt(dx * dx + dy * dy)
+    var dx = d.target.x - d.source.x
+    var dy = d.target.y - d.source.y
+    var dr = Math.sqrt(dx * dx + dy * dy)
     return 'M' + d.source.x + ',' + d.source.y + 'A' + dr + ',' + dr + ' 0 0,1 ' + d.target.x + ',' + d.target.y
   }
 
@@ -88,18 +88,16 @@ function lantern (opts) {
     d.fy = null
   }
 
-  function updateFocus () {
-    circle
-      .classed('dlantern-graph__node--focus', function (d) { return !!d.focus })
-  }
+  // function updateFocus () {
+  //   circle
+  //     .classed('dlantern-graph__node--focus', function (d) { return !!d.focus })
+  // }
 
   return {
-    render: function (adjList, doc) {
-      var random = function () { return Math.random().toString(36).substring(7) }
-
+    render: function (registryMetadata) {
       // items
-      nodes = utils.adjList2Nodes(adjList)
-      links = utils.adjList2Links(adjList)
+      nodes = utils.adjList2Nodes(registryMetadata)
+      links = utils.adjList2Links(registryMetadata)
 
       // init force simulation
       forceLinks = d3.forceLink()
@@ -126,10 +124,18 @@ function lantern (opts) {
         .classed('dlantern-graph__node', true)
         .attr('r', nodeRadius)
         .on('focus', function (node) {
-          helpDOMNode.innerHTML = '<h3>' + node.name + '</h3>' + doc[node.name]
+          document.body.classList.add('lantern-help-show')
+          var meta = registryMetadata[node.name]
+          var title = '<h3>' + meta.name + '</h3>'
+          var cached = '<tr><td>Cached</td><td>' + meta.cached.toString() + '</td></tr>'
+          var file = '<tr><td>File</td><td>' + meta.debugInfo.fileName + '</td></tr>'
+          var line = '<tr><td>Line</td><td>' + meta.debugInfo.line + '</td></tr>'
+          var deps = '<tr><td>Deps</td><td>' + meta.deps.join(', ') + '</td></tr>'
+          var doc = '<p>' + meta.doc + '</p>'
+          helpDOMNode.innerHTML = title + '<table>' + deps + cached + file + line + '</table>' + doc
         })
         .on('blur', function (node) {
-          helpDOMNode.innerHTML = ''
+          document.body.classList.remove('lantern-help-show')
         })
         .call(d3.drag()
           .on('start', dragstarted)
