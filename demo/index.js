@@ -7,6 +7,7 @@ const app = express()
 const registry = Diogenes.getRegistry()
 registry.service('database')
   .provides(function () {})
+  .setCache({ len: 1 })
   .doc('manage the connection to the db')
 
 registry.service('userdata')
@@ -24,7 +25,12 @@ registry.service('permissions')
   .provides(function () {})
   .doc('permissions data')
 
-const getRegistry = () => registry
+registry.service('render')
+  .dependsOn(['userprofile', 'userdata', 'permissions', 'req', 'res'])
+  .provides(function () {})
+  .doc('render data')
+
+const getRegistry = (req, res) => registry
 
 app.get('/', lanternMiddleware(getRegistry, { title: 'test' }))
 

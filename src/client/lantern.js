@@ -127,7 +127,7 @@ function lantern (opts) {
           document.body.classList.add('lantern-help-show')
           var meta = registryMetadata[node.name]
           var title = '<h3>' + meta.name + '</h3>'
-          var cached = '<tr><td>Cached</td><td>' + meta.cached.toString() + '</td></tr>'
+          var cached = '<tr><td>Cache</td><td>' + JSON.stringify(meta.cache) + '</td></tr>'
           var file = '<tr><td>File</td><td>' + meta.debugInfo.fileName + '</td></tr>'
           var line = '<tr><td>Line</td><td>' + meta.debugInfo.line + '</td></tr>'
           var deps = '<tr><td>Deps</td><td>' + meta.deps.join(', ') + '</td></tr>'
