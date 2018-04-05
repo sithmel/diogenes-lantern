@@ -15,6 +15,7 @@
     "release:patch": "npm-release patch",
     "precommit": "npm run lint",
     "prepush": "npm run test",
+    "prepublish": "npm run build-js && npm run build-css",
     "dev": "npm run build-js && npm run build-css && npm run start",
     "start": "node demo"
   },

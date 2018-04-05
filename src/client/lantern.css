@@ -19,6 +19,10 @@
   outline: none;
 }
 
+.lantern-help-show .dlantern-graph__node.dependency{
+  fill: #bdecb6;
+}
+
 .dlantern-graph__node--focus{
   fill: #F3E323;
 }

@@ -121,6 +121,7 @@ function lantern (opts) {
 
       circle = circleUpdate
         .enter().append('circle')
+        .attr('data-name', function (node) { return node.name })
         .classed('dlantern-graph__node', true)
         .attr('r', nodeRadius)
         .on('focus', function (node) {
@@ -133,6 +134,12 @@ function lantern (opts) {
           var deps = '<tr><td>Deps</td><td>' + meta.deps.join(', ') + '</td></tr>'
           var doc = '<p>' + meta.doc + '</p>'
           helpDOMNode.innerHTML = title + '<table>' + deps + cached + file + line + '</table>' + doc
+          var allCircles = Array.prototype.slice.call(this.parentNode.childNodes)
+          allCircles.forEach(function (c) {
+            var name = c.getAttribute('data-name')
+            var isDependency = meta.deps.indexOf(name) > -1
+            d3.select(c).classed('dependency', isDependency)
+          })
         })
         .on('blur', function (node) {
           document.body.classList.remove('lantern-help-show')
