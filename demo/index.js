@@ -28,9 +28,11 @@ registry.service('permissions')
 registry.service('render')
   .dependsOn(['userprofile', 'userdata', 'permissions', 'req', 'res'])
   .provides(function () {})
-  .doc('render data')
+  .doc(`#render data
 
-const getRegistry = (req, res) => registry
+    test 123`)
+
+const getRegistry = (req, res) => registry.addDeps({ req, res })
 
 app.get('/', lanternMiddleware(getRegistry, { title: 'test' }))
 

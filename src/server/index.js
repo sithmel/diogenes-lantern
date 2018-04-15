@@ -10,7 +10,7 @@ const jsStr = fs.readFileSync(JSPATH, 'utf8')
 function lanternMiddleware (getRegistry, opts) {
   return (req, res, next) => {
     const registry = getRegistry(req, res, next)
-    const metadata = JSON.stringify(registry.getMetadata({ req: req, res: res, next: next }))
+    const metadata = JSON.stringify(registry.getMetadata())
 
     res.status(200).send(`<!DOCTYPE html>
       <head>

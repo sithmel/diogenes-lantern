@@ -1,5 +1,11 @@
 var d3 = require('d3')
 var utils = require('./utils')
+var showdown = require('showdown')
+
+function toHTML (doc) {
+  var converter = new showdown.Converter()
+  return converter.makeHtml(doc)
+}
 
 function lantern (opts) {
   opts = opts || {}
@@ -128,12 +134,11 @@ function lantern (opts) {
           document.body.classList.add('lantern-help-show')
           var meta = registryMetadata[node.name]
           var title = '<h3>' + meta.name + '</h3>'
-          var cached = '<tr><td>Cache</td><td>' + JSON.stringify(meta.cache) + '</td></tr>'
           var file = '<tr><td>File</td><td>' + meta.debugInfo.fileName + '</td></tr>'
           var line = '<tr><td>Line</td><td>' + meta.debugInfo.line + '</td></tr>'
           var deps = '<tr><td>Deps</td><td>' + meta.deps.join(', ') + '</td></tr>'
-          var doc = '<p>' + meta.doc + '</p>'
-          helpDOMNode.innerHTML = title + '<table>' + deps + cached + file + line + '</table>' + doc
+          var doc = '<div>' + toHTML(meta.doc) + '</div>'
+          helpDOMNode.innerHTML = title + '<table>' + deps + file + line + '</table>' + doc
           var allCircles = Array.prototype.slice.call(this.parentNode.childNodes)
           allCircles.forEach(function (c) {
             var name = c.getAttribute('data-name')
@@ -142,7 +147,7 @@ function lantern (opts) {
           })
         })
         .on('blur', function (node) {
-          document.body.classList.remove('lantern-help-show')
+          // document.body.classList.remove('lantern-help-show')
         })
         .call(d3.drag()
           .on('start', dragstarted)
