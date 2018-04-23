@@ -1,6 +1,6 @@
 {
   "name": "diogenes-lantern",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "It helps debugging diogenes",
   "main": "index.js",
   "scripts": {
