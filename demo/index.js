@@ -7,7 +7,6 @@ const app = express()
 const registry = Diogenes.getRegistry()
 registry.service('database')
   .provides(function () {})
-  .setCache({ len: 1 })
   .doc('manage the connection to the db')
 
 registry.service('userdata')
@@ -32,7 +31,7 @@ registry.service('render')
 
     test 123`)
 
-const getRegistry = (req, res) => registry.addDeps({ req, res })
+const getRegistry = (req, res) => registry.clone().addDeps({ req, res })
 
 app.get('/', lanternMiddleware(getRegistry, { title: 'test' }))
 

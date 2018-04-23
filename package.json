@@ -1,6 +1,6 @@
 {
   "name": "diogenes-lantern",
-  "version": "2.0.0",
+  "version": "5.0.0",
   "description": "It helps debugging diogenes",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
   "devDependencies": {
     "browserify": "^16.1.1",
     "chai": "^4.1.2",
-    "diogenes": "^5.0.0",
+    "diogenes": "^6.0.0",
     "eslint": "^4.18.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
